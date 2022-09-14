@@ -129,6 +129,8 @@ resource "aws_instance" "hashicat" {
 
   tags = {
     Name = "${var.prefix}-hashicat-instance"
+    Department = "Hashicorp SE"
+    Billable = "True"
   }
 }
 
@@ -197,4 +199,11 @@ locals {
 resource "aws_key_pair" "hashicat" {
   key_name   = local.private_key_filename
   public_key = tls_private_key.hashicat.public_key_openssh
+}
+
+
+
+module "s3-bucket" {
+  source  = "app.terraform.io/workshop-yulei/s3-bucket/aws"
+  version = "0.0.1"
 }
